@@ -1,66 +1,58 @@
-#include <stdarg.h>
-#include <stdlib.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: semebrah <semebrah@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/09 17:23:48 by semebrah          #+#    #+#             */
+/*   Updated: 2025/12/09 17:24:06 by semebrah         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char	*ft_str_append(char const *s1, char const *s2, size_t start, size_t end)
+#include "ft_printf.h"
+
+void	ft_printf(const char *f, ...)
 {
-	ssize_t	i;
-	size_t	s1_len;
-	char	*new;
+	va_list args;
 
-	s1_len = 0;
-	while (s1[s1_len])
-		s1_len++;
-	new = malloc(s1_len + end - start + 1);
-	if (!new)
-		return (NULL);
-	i = -1;
-	while ((size_t)++i < s1_len)
-		new[i] = s1[i];
-	while (start < end)
-		new[i++] = s2[start++];
-	new[i] = '\0';
-	return (new);
+	ssize_t ix;
+	char *temp;
+
+	va_start(args, f);
+
+	while(ft_index(f, '%') > -1){
+		ix = ft_index(f, '%');
+		write(1, f, ix);
+		f = &f[ix];
+		
+		if (*f == 'c')
+			temp = (char []){va_arg(args, int)};
+		else if (*f == 's')
+			temp = va_arg(args, char*);
+		else if (*f == 'p')
+			temp = ft_convert_base(va_arg(args, unsigned int), "012345679abcdef");
+		else if (*f == 'd' || *f == 'i')
+			temp = ft_convert_base(va_arg(args, int), "012345679");
+		else if (*f == 'u')
+			temp = ft_convert_base(va_arg(args, unsigned int), "012345679");
+		else if (*f == 'x')
+			temp = ft_convert_base(va_arg(args, int), "012345679abcdef");
+		else if (*f == 'X')
+			temp = ft_convert_base(va_arg(args, int), "012345679ABCDEF");
+		else if (*f == '%')
+			temp = (char []){va_arg(args, int)};
+
+		write(1, temp, ft_strlen(temp));
+	}
+
+	write(1, f, ft_strlen(f));
+
+	va_end(args);
 }
 
-ssize_t	ft_index(const char *s, size_t start, char c)
-{
-	size_t	i;
-
-	if (!s)
-		return (-1);
-	i = start;
-	while (s[i] != c)
-		if (!s[i++])
-			return -1;
-	return (i);
-}
-
-void ft_printf(const char *format, ...){
-  size_t index = 0;
-  char *res = "";
-  va_list args;
-  char *temp;
-
-
-  va_start(args, format);
-
-  while (ft_index(format, index, '%') > -1){
-    index = ft_index(format, index, '%');
-    if (format[index + 1] == 's')
-      temp = va_arg(args, char *);
-    else if (format[index+1] == 'd')
-      temp = ft_convert_d(va_arg(args, int));
-
-      
-
-  }
-
-  
-  
-  va_end(args);
-}
-
-
-int main() {
-}
+// int	main(void)
+// {
+// 	ft_printf("hello %s, today is %d centigrade, a 10%%", "semere", 24);
+// 	// printf("hello %s, today is %d centigrade, a 10%%", "semere", 24);
+// }
