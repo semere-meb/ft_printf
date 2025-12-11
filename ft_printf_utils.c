@@ -26,14 +26,23 @@ char * ft_append(char *s1, char *s2, size_t size) {
 	return res;
 }
 
-ssize_t	ft_index(const char *s, char c)
+int ft_is_member(char c, char *chars) {
+	size_t i = 0;
+
+	while (chars[i])
+		if(chars[i++] == c)
+			return i;
+	return 0;
+}
+
+ssize_t	ft_index(const char *s, char *chars)
 {
 	size_t	i;
 
 	if (!s)
 		return (-1);
 	i = 0;
-	while (s[i] != c)
+	while (!ft_is_member(s[i], chars))
 		if (!s[i++])
 			return (-1);
 	return (i);

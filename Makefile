@@ -6,8 +6,7 @@ CC = cc
 CC_ARGS = -Wall -Wextra -Werror
 
 SRCS =	ft_printf.c \
-	ft_printf_utils.c \
-	main.c
+	ft_printf_utils.c
 
 OBJS = $(SRCS:.c=.o)
 

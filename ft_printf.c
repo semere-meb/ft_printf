@@ -11,48 +11,31 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdarg.h>
+#include <stdio.h>
 
 void	ft_printf(const char *f, ...)
 {
 	va_list args;
-
-	ssize_t ix;
-	char *temp;
+	size_t i = 0;
+	t_template *tpl = malloc(sizeof(t_template));
+	if (!tpl)
+		return;
 
 	va_start(args, f);
 
-	while(ft_index(f, '%') > -1){
-		ix = ft_index(f, '%');
-		write(1, f, ix);
-		f = &f[ix];
-		
-		if (*f == 'c')
-			temp = (char []){va_arg(args, int)};
-		else if (*f == 's')
-			temp = va_arg(args, char*);
-		else if (*f == 'p')
-			temp = ft_convert_base(va_arg(args, unsigned int), "012345679abcdef");
-		else if (*f == 'd' || *f == 'i')
-			temp = ft_convert_base(va_arg(args, int), "012345679");
-		else if (*f == 'u')
-			temp = ft_convert_base(va_arg(args, unsigned int), "012345679");
-		else if (*f == 'x')
-			temp = ft_convert_base(va_arg(args, int), "012345679abcdef");
-		else if (*f == 'X')
-			temp = ft_convert_base(va_arg(args, int), "012345679ABCDEF");
-		else if (*f == '%')
-			temp = (char []){va_arg(args, int)};
+	while(f[i]){
 
-		write(1, temp, ft_strlen(temp));
+
+
 	}
-
-	write(1, f, ft_strlen(f));
-
 	va_end(args);
+
+	write(1, &f[i], ft_strlen(&f[i]));
+
 }
 
-// int	main(void)
-// {
-// 	ft_printf("hello %s, today is %d centigrade, a 10%%", "semere", 24);
-// 	// printf("hello %s, today is %d centigrade, a 10%%", "semere", 24);
-// }
+int	main(void)
+{
+	ft_printf("hello %s, today is %d centigrade, a 10");
+}
