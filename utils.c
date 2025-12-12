@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: semebrah <semebrah@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/09 17:23:48 by semebrah          #+#    #+#             */
-/*   Updated: 2025/12/09 17:24:06 by semebrah         ###   ########.fr       */
+/*   Created: 2025/12/09 17:24:25 by semebrah          #+#    #+#             */
+/*   Updated: 2025/12/09 17:24:31 by semebrah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
-void	ft_printf(const char *f, ...)
+int	ft_is_member(char c, char *chars)
 {
-	size_t		i = 0;
-	t_template	*tpl = malloc(sizeof(t_template));
-	va_list		args;
+	size_t	i;
 
-	va_start(args, f);
-	while (f[i] && ft_next_template(f, i, tpl))
-	{
-		write(1, &f[i], tpl->start - i);
-		i = tpl->end;
-	}
-	va_end(args);
-	free(tpl);
-	write(1, &f[i], ft_strlen(&f[i]));
+	i = 0;
+	while (chars[i])
+		if (chars[i++] == c)
+			return (i);
+	return (0);
+}
+
+ssize_t	ft_index(const char *s, size_t start, char *chars)
+{
+	size_t	i;
+
+	if (!s)
+		return (-1);
+	i = start;
+	while (!ft_is_member(s[i], chars))
+		if (!s[i++])
+			return (-1);
+	return (i);
 }

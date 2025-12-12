@@ -5,8 +5,7 @@ LIBFTLIB = $(LIBFTDIR)/libft.a
 CC = cc
 CC_ARGS = -Wall -Wextra -Werror
 
-SRCS =	ft_printf.c \
-	ft_printf_utils.c
+SRCS = converter.c ft_printf.c parser.c utils.c
 
 OBJS = $(SRCS:.c=.o)
 
