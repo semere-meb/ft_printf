@@ -22,11 +22,11 @@ int	ft_next_template(const char *str, size_t start, t_template *tpl)
 {
 	size_t	i;
 
-	ft_reset_template(tpl);
 	i = start;
-	if (ft_index(str, start, "%") > -1)
+	while (str[i] && ft_index(str, i, "%") > -1)
 	{
-		tpl->start = ft_index(str, start, "%");
+		ft_reset_template(tpl);
+		tpl->start = ft_index(str, i, "%");
 		i = tpl->start + 1;
 		while (str[i] && ft_is_member(str[i], "-+ #0"))
 		{
@@ -54,7 +54,9 @@ int	ft_next_template(const char *str, size_t start, t_template *tpl)
 		if (str[i] && ft_is_member(str[i], "cspdiuxX%"))
 			tpl->specifier = str[i++];
 		tpl->end = i;
-		return (1);
+		if (tpl->specifier)
+			return (1);
 	}
+
 	return (0);
 }
