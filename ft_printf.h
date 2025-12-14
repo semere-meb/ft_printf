@@ -33,18 +33,26 @@ typedef struct s_template
 	int		space;
 	int		hash;
 	int		zero;
-	size_t	width;
-	int		dot;
-	size_t	precision;
+	ssize_t	width;
+	ssize_t	precision;
 	char	specifier;
 }			t_template;
 
 int			ft_is_member(char c, char *chars);
 ssize_t		ft_index(const char *s, size_t start, char *chars);
+
+// parser.c
+void	ft_reset_template(t_template *tpl);
 int			ft_next_template(const char *str, size_t start, t_template *tpl);
 
+// converter.c
 char		*ft_convert_base(int n, char *base_to);
 
+// ft_printf.c
 void		ft_printf(const char *f, ...);
+
+// handler.c
+char *ft_str_gen(char c, size_t size);
+void handler(char *val, t_template *tpl);
 
 #endif

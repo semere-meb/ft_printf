@@ -35,3 +35,15 @@ ssize_t	ft_index(const char *s, size_t start, char *chars)
 			return (-1);
 	return (i);
 }
+
+char *ft_str_gen(char c, size_t size) {
+	if (!size)
+		return NULL;
+	char *res = malloc(size + 1);
+	if (!res)
+		return NULL;
+	res[size] = '\0';
+	while (size--)
+		res[size] = c;
+	return res;
+}

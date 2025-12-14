@@ -11,9 +11,8 @@ static void	ft_reset_template(t_template *tpl)
 	tpl->space = 0;
 	tpl->hash = 0;
 	tpl->zero = 0;
-	tpl->width = 0;
-	tpl->dot = 0;
-	tpl->precision = 0;
+	tpl->width = -1;
+	tpl->precision =-1;
 	tpl->specifier = 0;
 	tpl->end = 0;
 }
@@ -45,10 +44,7 @@ int	ft_next_template(const char *str, size_t start, t_template *tpl)
 		while (str[i] && ft_isdigit(str[i]))
 			tpl->width = tpl->width * 10 + str[i++] - '0';
 		if (str[i] == '.')
-		{
-			tpl->dot = 1;
 			i++;
-		}
 		while (str[i] && ft_isdigit(str[i]))
 			tpl->precision = tpl->precision * 10 + str[i++] - '0';
 		if (str[i] && ft_is_member(str[i], "cspdiuxX%"))
