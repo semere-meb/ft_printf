@@ -1,18 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: semebrah <semebrah@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/15 19:37:21 by semebrah          #+#    #+#             */
+/*   Updated: 2025/12/15 19:37:33 by semebrah         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-static void	ft_reset_template(t_template *tpl)
+void	ft_reset_template(t_template *tpl)
 {
 	if (!tpl)
-		return;
+		return ;
 	tpl->start = 0;
-	tpl->left_justify = 0;
+	tpl->left = 0;
 	tpl->sign = 0;
 	tpl->space = 0;
-	tpl->hash = 0;
+	tpl->alt = 0;
 	tpl->zero = 0;
 	tpl->width = -1;
-	tpl->precision =-1;
+	tpl->precision = -1;
 	tpl->specifier = 0;
 	tpl->end = 0;
 }
@@ -30,13 +42,13 @@ int	ft_next_template(const char *str, size_t start, t_template *tpl)
 		while (str[i] && ft_is_member(str[i], "-+ #0"))
 		{
 			if (str[i] == '-')
-				tpl->left_justify = 1;
+				tpl->left = 1;
 			else if (str[i] == '+')
 				tpl->sign = 1;
 			else if (str[i] == ' ')
 				tpl->space = 1;
 			else if (str[i] == '#')
-				tpl->hash = 1;
+				tpl->alt = 1;
 			else if (str[i] == '0')
 				tpl->zero = 1;
 			i++;
@@ -53,6 +65,5 @@ int	ft_next_template(const char *str, size_t start, t_template *tpl)
 		if (tpl->specifier)
 			return (1);
 	}
-
 	return (0);
 }

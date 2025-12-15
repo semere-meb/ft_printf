@@ -1,13 +1,13 @@
 NAME = libftprintf.a
 LIBFTDIR = libft
 LIBFTLIB = $(LIBFTDIR)/libft.a
+TEST = main.c
+
+SRCS =  converter.c ft_printf.c handler.c parser.c utils.c
+OBJS = $(SRCS:.c=.o)
 
 CC = cc
-CC_ARGS = -Wall -Wextra -Werror
-
-SRCS = converter.c ft_printf.c parser.c utils.c
-
-OBJS = $(SRCS:.c=.o)
+CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
@@ -19,7 +19,7 @@ $(NAME): $(OBJS) $(LIBFTLIB)
 	ar rcs $(NAME) $(OBJS)
 
 %.o: %.c
-	$(CC) $(CC_ARGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
 	rm -f $(OBJS)
@@ -30,5 +30,8 @@ fclean: clean
 	$(MAKE) -C $(LIBFTDIR) fclean
 
 re: fclean all
+
+test: $(NAME)
+	$(cc) $(CFLAGS) $(TEST) $(NAME) 
 
 .PHONY: all clean fclean re

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: semebrah <semebrah@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 17:24:25 by semebrah          #+#    #+#             */
-/*   Updated: 2025/12/09 17:24:31 by semebrah         ###   ########.fr       */
+/*   Updated: 2025/12/15 19:37:33 by semebrah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,17 @@ ssize_t	ft_index(const char *s, size_t start, char *chars)
 	return (i);
 }
 
-char *ft_str_gen(char c, size_t size) {
+char	*ft_str_gen(char c, size_t size)
+{
+	char	*res;
+
 	if (!size)
-		return NULL;
-	char *res = malloc(size + 1);
+		return (NULL);
+	res = malloc(size + 1);
 	if (!res)
-		return NULL;
+		return (NULL);
 	res[size] = '\0';
 	while (size--)
 		res[size] = c;
-	return res;
+	return (res);
 }
