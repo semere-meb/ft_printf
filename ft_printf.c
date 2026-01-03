@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft/libft.h"
 #include <stdarg.h>
 #include <stdio.h>
 
@@ -19,41 +20,42 @@ int	ft_printf(const char *f, ...)
 	size_t		i;
 	t_template	*tpl;
 	va_list		args;
-	size_t		count;
+	char *temp;
+	char *res;
 
 	i = 0;
 	tpl = malloc(sizeof(t_template));
-	count = 0;
+	res = ft_strdup("");
 	va_start(args, f);
+
 	while (f[i] && ft_next_template(f, i, tpl))
 	{
-		write(1, &f[i], tpl->start - i);
-		count += (tpl->start - i);
+		res = append(res, &f[i], tpl->start - i);
 		if (tpl->specifier == 'c')
-			count += handle_s((char[]){va_arg(args, int)}, tpl);
+			temp = handle_c(va_arg(args, int), tpl);
 		else if (tpl->specifier == 's')
-			count += handle_s(va_arg(args, char *), tpl);
+			temp = handle_s(va_arg(args, char *), tpl);
 		else if (tpl->specifier == 'd' || tpl->specifier == 'i')
-			count += handle_d(ft_convert_base(va_arg(args, int), "0123456789"),
-					tpl);
+			temp = handle_d(base(va_arg(args, int), "0123456789"), tpl);
 		else if (tpl->specifier == 'u')
-			count += handle_u(ft_convert_base(va_arg(args, unsigned int),
-						"0123456789abcdef"), tpl);
-		else if (tpl->specifier == 'x')
-			count += handle_x(ft_convert_base(va_arg(args, int),
-						"0123456789ABCDEF"), tpl);
+			temp = handle_u(base(va_arg(args, unsigned int), "0123456789abcdef"), tpl);
+		else if (tpl->specifier == 'X')
+			temp = handle_x(base(va_arg(args, int), "0123456789ABCDEF"), tpl);
 		else if (tpl->specifier == 'x' || tpl->specifier == 'p')
-			count += handle_x(ft_convert_base(va_arg(args, int),
-						"0123456789abcdef"), tpl);
+			temp = handle_x(base(va_arg(args, int), "0123456789abcdef"), tpl);
 		else if (tpl->specifier == '%')
-		{
-			write(1, "%", 1);
-			count += 1;
-		}
+			temp = ft_strdup("%");
 		i = tpl->end;
+		res = append(res, temp, ft_strlen(temp));
+		free(temp);
 	}
+	res = append(res, &f[i], ft_strlen(&f[i]));
+	ft_putstr_fd(res, 1);
+	i = ft_strlen(res);
+
 	va_end(args);
 	free(tpl);
-	write(1, &f[i], ft_strlen(&f[i]));
-	return (count);
+	free(res);
+
+	return (i);
 }

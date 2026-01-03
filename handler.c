@@ -13,35 +13,33 @@
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-size_t	handle_s(char *str, t_template *tpl)
-{
-	ssize_t	size;
-	char	*gen;
-
-	size = ft_strlen(str);
-	if (tpl->precision < size)
-		size = tpl->precision;
-	gen = ft_str_gen(' ', tpl->width - size);
-	if (tpl->left && tpl->width > size)
-		write(1, gen, ft_strlen(gen));
-	write(1, str, size);
-	if (!tpl->left && tpl->width > size)
-		write(1, gen, ft_strlen(gen));
-	return (ft_strlen(gen) + size);
+char *handle_c(int c, t_template *tpl) {
+	(void) tpl;
+	printf("DEBUG: [%c]\n", (char) c);
+	return ft_strdup((char []) {(unsigned char) c});	
 }
 
-size_t	handle_d(char *str, t_template *tpl)
-{
-	(void)str, (void)tpl;
-	return (0);
+char *handle_s(char *str, t_template *tpl) {
+	(void ) tpl;
+	return ft_strdup(str);	
 }
-size_t	handle_u(char *str, t_template *tpl)
-{
-	(void)str, (void)tpl;
-	return (0);
+
+char *handle_p(char *str, t_template *tpl) {
+	(void ) tpl;
+	return ft_strdup(str);	
 }
-size_t	handle_x(char *str, t_template *tpl)
-{
-	(void)str, (void)tpl;
-	return (0);
+
+char *handle_d(char *str, t_template *tpl) {
+	(void ) tpl;
+	return ft_strdup(str);	
+}
+
+char *handle_u(char *str, t_template *tpl) {
+	(void ) tpl;
+	return ft_strdup(str);	
+}
+
+char *handle_x(char *str, t_template *tpl) {
+	(void ) tpl;
+	return ft_strdup(str);	
 }

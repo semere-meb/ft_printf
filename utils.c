@@ -50,3 +50,27 @@ char	*ft_str_gen(char c, size_t size)
 		res[size] = c;
 	return (res);
 }
+
+char	*append(char *s1, const char *s2, size_t size)
+{
+	ssize_t	i;
+	size_t	s1_len;
+	char	*new;
+
+	s1_len = 0;
+	if (s1)
+		s1_len = ft_strlen(s1);
+	new = malloc(s1_len + size + 1);
+	if (!new)
+		return (NULL);
+	i = -1;
+	while ((size_t)++i < s1_len && s1[i])
+		new[i] = s1[i];
+	i = -1;
+	while ((size_t)++i < size && s2[i])
+		new[s1_len + i] = s2[i];
+	new[s1_len + i] = '\0';
+
+	free(s1);
+	return (new);
+}

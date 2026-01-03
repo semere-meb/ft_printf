@@ -44,7 +44,7 @@ static size_t	ft_count_digits(long n, size_t base_len)
 	return (digit_count);
 }
 
-char	*ft_convert_base(int n, char *base_to)
+char	*base(int n, char *base_to)
 {
 	long	_n;
 	char	*str;

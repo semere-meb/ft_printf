@@ -37,22 +37,24 @@ typedef struct s_template
 int			ft_is_member(char c, char *chars);
 ssize_t		ft_index(const char *s, size_t start, char *chars);
 char		*ft_str_gen(char c, size_t size);
+char	*append(char *s1, const char *s2, size_t size);
 
 // parser.c
 void		ft_reset_template(t_template *tpl);
 int			ft_next_template(const char *str, size_t start, t_template *tpl);
 
 // converter.c
-char		*ft_convert_base(int n, char *base_to);
+char		*base(int n, char *base_to);
 
 // ft_printf.c
 int			ft_printf(const char *, ...);
 
 // handler.c
-size_t		handle_s(char *str, t_template *tpl);
-size_t		handle_p(char *str, t_template *tpl);
-size_t		handle_d(char *str, t_template *tpl);
-size_t		handle_u(char *str, t_template *tpl);
-size_t		handle_x(char *str, t_template *tpl);
+char *handle_c(int c, t_template *tpl);
+char *handle_s(char *str, t_template *tpl);
+char *handle_p(char *str, t_template *tpl);
+char *handle_d(char *str, t_template *tpl);
+char *handle_u(char *str, t_template *tpl);
+char *handle_x(char *str, t_template *tpl);
 
 #endif
