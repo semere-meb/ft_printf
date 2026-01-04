@@ -15,8 +15,7 @@
 
 char *handle_c(int c, t_template *tpl) {
 	(void) tpl;
-	printf("DEBUG: [%c]\n", (char) c);
-	return ft_strdup((char []) {(unsigned char) c});	
+	return ft_strdup((char []) {(unsigned char) c, '\0'});	
 }
 
 char *handle_s(char *str, t_template *tpl) {
