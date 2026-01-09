@@ -30,7 +30,7 @@ int	ft_printf(const char *f, ...)
 
 	while (f[i] && ft_next_template(f, i, tpl))
 	{
-		res = append(res, &f[i], tpl->start - i);
+		res = append(res, (char *)&f[i], tpl->start - i, 0);
 		if (tpl->specifier == 'c')
 			temp = handle_c(va_arg(args, int), tpl);
 		else if (tpl->specifier == 's')
@@ -46,10 +46,9 @@ int	ft_printf(const char *f, ...)
 		else if (tpl->specifier == '%')
 			temp = ft_strdup("%");
 		i = tpl->end;
-		res = append(res, temp, ft_strlen(temp));
-		free(temp);
+		res = append(res, temp, ft_strlen(temp), 1);
 	}
-	res = append(res, &f[i], ft_strlen(&f[i]));
+	res = append(res, (char *)&f[i], ft_strlen(&f[i]), 0);
 	ft_putstr_fd(res, 1);
 	i = ft_strlen(res);
 

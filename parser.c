@@ -23,8 +23,8 @@ void	ft_reset_template(t_template *tpl)
 	tpl->space = 0;
 	tpl->alt = 0;
 	tpl->zero = 0;
-	tpl->width = -1;
-	tpl->precision = -1;
+	tpl->width = 0;
+	tpl->precision = 0;
 	tpl->specifier = 0;
 	tpl->end = 0;
 }

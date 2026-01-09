@@ -51,7 +51,7 @@ char	*ft_str_gen(char c, size_t size)
 	return (res);
 }
 
-char	*append(char *s1, const char *s2, size_t size)
+char	*append(char *s1, char *s2, size_t size, int freeable)
 {
 	ssize_t	i;
 	size_t	s1_len;
@@ -72,5 +72,7 @@ char	*append(char *s1, const char *s2, size_t size)
 	new[s1_len + i] = '\0';
 
 	free(s1);
+	if (freeable)
+		free(s2);
 	return (new);
 }

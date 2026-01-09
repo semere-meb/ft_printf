@@ -28,8 +28,8 @@ typedef struct s_template
 	int		space;
 	int		alt;
 	int		zero;
-	ssize_t	width;
-	ssize_t	precision;
+	int	width;
+	int	precision;
 	char	specifier;
 }			t_template;
 
@@ -37,7 +37,7 @@ typedef struct s_template
 int			ft_is_member(char c, char *chars);
 ssize_t		ft_index(const char *s, size_t start, char *chars);
 char		*ft_str_gen(char c, size_t size);
-char	*append(char *s1, const char *s2, size_t size);
+char	*append(char *s1, char *s2, size_t size, int freeable);
 
 // parser.c
 void		ft_reset_template(t_template *tpl);
