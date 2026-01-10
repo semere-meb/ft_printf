@@ -14,6 +14,8 @@
 #include "libft/libft.h"
 #include <stdio.h>
 
+// TODO: remember precion of 0 for 0 
+
 void inspect_tpl(t_template *tpl) {
 	dprintf(1, "left     : [%i]\n", tpl->left);
 	dprintf(1, "sign     : [%i]\n", tpl->sign);
@@ -78,6 +80,23 @@ char *handle_u(char *str, t_template *tpl) {
 }
 
 char *handle_x(char *str, t_template *tpl) {
-	(void ) tpl;
-	return ft_strdup(str);	
+	char *str_gen = ft_strdup("");
+
+	if (tpl->precision > (int) ft_strlen(str))
+		str = append(ft_str_gen('0', tpl->precision - ft_strlen(str)), str, ft_strlen(str), 1);
+	
+	if (tpl->alt)
+		str = append(ft_strdup("0x"), str, ft_strlen(str), 1);
+
+	if(tpl->width > (int) ft_strlen(str)){
+		free(str_gen);
+		char c = ' ';
+		if (tpl->zero && !tpl->left && !tpl->precision)
+			c = '0';
+		str_gen = ft_str_gen(c, tpl->width - (int) ft_strlen(str));
+	}
+
+	if (tpl->left)
+		return append(str, str_gen, ft_strlen(str_gen), 1);
+	return append(str_gen, str, ft_strlen(str), 1);
 }
