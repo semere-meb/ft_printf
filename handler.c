@@ -56,17 +56,15 @@ char *handle_s(char *str, t_template *tpl)  {
 
 char *handle_p(char *str, t_template *tpl)   {
 	char *str_gen = ft_strdup("");
-	char *temp = ft_strdup(str);
-	free(str);
-	temp = append(ft_strdup("0x"), temp, ft_strlen(temp), 1);
+	str = append(ft_strdup("0x"), str, ft_strlen(str), 1);
 
-	if(tpl->width > (int) ft_strlen(temp)){
+	if(tpl->width > (int) ft_strlen(str)){
 		free(str_gen);
-		str_gen = ft_str_gen(' ', tpl->width - (int) ft_strlen(temp));
+		str_gen = ft_str_gen(' ', tpl->width - (int) ft_strlen(str));
 	}
 	if (tpl->left)
-		return append(temp, str_gen, ft_strlen(str_gen), 1);
-	return append(str_gen, temp, ft_strlen(temp), 1);
+		return append(str, str_gen, ft_strlen(str_gen), 1);
+	return append(str_gen, str, ft_strlen(str), 1);
 }
 
 char *handle_d(char *str, t_template *tpl) {
