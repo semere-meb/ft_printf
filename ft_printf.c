@@ -39,10 +39,12 @@ int	ft_printf(const char *f, ...)
 			temp = handle_d(base(va_arg(args, int), "0123456789"), tpl);
 		else if (tpl->specifier == 'u')
 			temp = handle_u(base(va_arg(args, unsigned int), "0123456789abcdef"), tpl);
+		else if (tpl->specifier == 'p')
+			temp = handle_p(base(va_arg(args, size_t), "0123456789abcdef"), tpl);
+		else if (tpl->specifier == 'x')
+			temp = handle_x(base(va_arg(args, size_t), "0123456789abcdef"), tpl);
 		else if (tpl->specifier == 'X')
-			temp = handle_x(base(va_arg(args, int), "0123456789ABCDEF"), tpl);
-		else if (tpl->specifier == 'x' || tpl->specifier == 'p')
-			temp = handle_x(base(va_arg(args, int), "0123456789abcdef"), tpl);
+			temp = handle_x(base(va_arg(args, size_t), "0123456789ABCDEF"), tpl);
 		else if (tpl->specifier == '%')
 			temp = ft_strdup("%");
 		i = tpl->end;

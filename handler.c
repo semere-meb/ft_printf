@@ -29,9 +29,6 @@ char *handle_c(int c, t_template *tpl) {
 	char *str = ft_str_gen(c, 1);
 	char *str_gen = ft_strdup("");
 
-
-	inspect_tpl(tpl);
-
 	if(tpl->width > 1){
 		free(str_gen);
 		str_gen = ft_str_gen(' ', tpl->width -1);
@@ -45,8 +42,6 @@ char *handle_s(char *str, t_template *tpl)  {
 	char *str_gen = ft_strdup("");
 	char *temp = ft_strdup(str);
 
-	inspect_tpl(tpl);
-
 	if (tpl->precision && tpl->precision < (int) ft_strlen(str_gen))
 		temp[tpl->precision] = '\0';
 
@@ -59,9 +54,19 @@ char *handle_s(char *str, t_template *tpl)  {
 	return append(str_gen, temp, ft_strlen(str), 1);
 }
 
-char *handle_p(char *str, t_template *tpl) {
-	(void ) tpl;
-	return ft_strdup(str);	
+char *handle_p(char *str, t_template *tpl)   {
+	char *str_gen = ft_strdup("");
+	char *temp = ft_strdup(str);
+	free(str);
+	temp = append(ft_strdup("0x"), temp, ft_strlen(temp), 1);
+
+	if(tpl->width > (int) ft_strlen(temp)){
+		free(str_gen);
+		str_gen = ft_str_gen(' ', tpl->width - (int) ft_strlen(temp));
+	}
+	if (tpl->left)
+		return append(temp, str_gen, ft_strlen(str_gen), 1);
+	return append(str_gen, temp, ft_strlen(temp), 1);
 }
 
 char *handle_d(char *str, t_template *tpl) {
