@@ -23,6 +23,8 @@ typedef struct s_template
 	size_t	start;
 	size_t	end;
 
+	size_t len;
+
 	int		left;
 	int		sign;
 	int		space;
@@ -36,8 +38,8 @@ typedef struct s_template
 // utils.c
 int			ft_is_member(char c, char *chars);
 ssize_t		ft_index(const char *s, size_t start, char *chars);
-char		*ft_str_gen(char c, size_t size);
-char	*append(char *s1, char *s2, size_t size, int freeable);
+char		*strgen(char c, size_t size);
+char	*append(char *s1, char *s2, ssize_t s1size, ssize_t s2size);
 
 // parser.c
 void		ft_reset_template(t_template *tpl);
@@ -50,11 +52,11 @@ char		*base(int n, char *base_to);
 int			ft_printf(const char *, ...);
 
 // handler.c
-char *handle_c(int c, t_template *tpl);
-char *handle_s(char *str, t_template *tpl);
-char *handle_p(char *str, t_template *tpl);
-char *handle_d(char *str, t_template *tpl);
-char *handle_u(char *str, t_template *tpl);
-char *handle_x(char *str, t_template *tpl);
+void handle_c(int c, t_template *tpl);
+void handle_s(char *str, t_template *tpl);
+void handle_p(char *str, t_template *tpl);
+void handle_d(char *str, t_template *tpl);
+void handle_u(char *str, t_template *tpl);
+void handle_x(char *str, t_template *tpl);
 
 #endif

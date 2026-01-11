@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft/libft.h"
 
 int	ft_is_member(char c, char *chars)
 {
@@ -36,7 +37,7 @@ ssize_t	ft_index(const char *s, size_t start, char *chars)
 	return (i);
 }
 
-char	*ft_str_gen(char c, size_t size)
+char	*strgen(char c, size_t size)
 {
 	char	*res;
 
@@ -51,28 +52,24 @@ char	*ft_str_gen(char c, size_t size)
 	return (res);
 }
 
-char	*append(char *s1, char *s2, size_t size, int freeable)
+char	*append(char *s1, char *s2, ssize_t s1size, ssize_t s2size)
 {
-	ssize_t	i;
-	size_t	s1_len;
-	char	*new;
+	char *res;
+	
+	if (s1size == -1)
+		s1size = ft_strlen(s1);
+	if (s2size == -1)
+		s2size = ft_strlen(s2);
 
-	s1_len = 0;
-	if (s1)
-		s1_len = ft_strlen(s1);
-	new = malloc(s1_len + size + 1);
-	if (!new)
-		return (NULL);
-	i = -1;
-	while ((size_t)++i < s1_len && s1[i])
-		new[i] = s1[i];
-	i = -1;
-	while ((size_t)++i < size && s2[i])
-		new[s1_len + i] = s2[i];
-	new[s1_len + i] = '\0';
+	res = malloc(s1size + s2size + 1);
+	if (!res)
+		return NULL;
+
+	ft_memcpy(res, s1, s1size);
+	ft_memcpy(&res[s1size], s2, s2size);
 
 	free(s1);
-	if (freeable)
-		free(s2);
-	return (new);
+	free(s2);
+
+	return (res);
 }
