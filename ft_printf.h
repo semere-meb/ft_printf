@@ -41,6 +41,15 @@ ssize_t		ft_index(const char *s, size_t start, char *chars);
 char		*strgen(char c, size_t size);
 char	*append(char *s1, char *s2, ssize_t s1size, ssize_t s2size);
 
+// utils2.c
+char *handle_precision(t_template *tpl, char *str);
+char *handle_width(t_template *tpl, int size, char c);
+char *handle_left(t_template *tpl, char *str, char *str_gen, size_t str_size, size_t str_gen_size);
+char *handle_alt(t_template *tpl, char *str);
+char *handle_sign(t_template *tpl, char *str);
+char handle_zero(t_template *tpl);
+void print(char *str, t_template *tpl, size_t size);
+
 // parser.c
 void		ft_reset_template(t_template *tpl);
 int			ft_next_template(const char *str, size_t start, t_template *tpl);
@@ -52,11 +61,11 @@ char		*base(int n, char *base_to);
 int			ft_printf(const char *, ...);
 
 // handler.c
-void handle_c(int c, t_template *tpl);
-void handle_s(char *str, t_template *tpl);
-void handle_p(char *str, t_template *tpl);
-void handle_d(char *str, t_template *tpl);
-void handle_u(char *str, t_template *tpl);
-void handle_x(char *str, t_template *tpl);
+void print_c(int c, t_template *tpl);
+void print_s(char *str, t_template *tpl);
+void print_p(char *str, t_template *tpl);
+void print_d(char *str, t_template *tpl);
+void print_u(char *str, t_template *tpl);
+void print_x(char *str, t_template *tpl);
 
 #endif

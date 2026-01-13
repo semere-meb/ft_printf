@@ -31,19 +31,19 @@ int	ft_printf(const char *f, ...)
 		write(1, &f[i], tpl->start - i);
 		tpl->len += (tpl->start - i);
 		if (tpl->specifier == 'c')
-			handle_c(va_arg(args, int), tpl);
+			print_c(va_arg(args, int), tpl);
 		else if (tpl->specifier == 's')
-			handle_s(va_arg(args, char *), tpl);
+			print_s(va_arg(args, char *), tpl);
 		else if (tpl->specifier == 'd' || tpl->specifier == 'i')
-			handle_d(base(va_arg(args, int), "0123456789"), tpl);
+			print_d(base(va_arg(args, int), "0123456789"), tpl);
 		else if (tpl->specifier == 'u')
-			handle_u(base(va_arg(args, unsigned int), "0123456789abcdef"), tpl);
+			print_u(base(va_arg(args, unsigned int), "0123456789abcdef"), tpl);
 		else if (tpl->specifier == 'p')
-			handle_p(base(va_arg(args, size_t), "0123456789abcdef"), tpl);
+			print_p(base(va_arg(args, size_t), "0123456789abcdef"), tpl);
 		else if (tpl->specifier == 'x')
-			handle_x(base(va_arg(args, size_t), "0123456789abcdef"), tpl);
+			print_x(base(va_arg(args, size_t), "0123456789abcdef"), tpl);
 		else if (tpl->specifier == 'X')
-			handle_x(base(va_arg(args, size_t), "0123456789ABCDEF"), tpl);
+			print_x(base(va_arg(args, size_t), "0123456789ABCDEF"), tpl);
 		else if (tpl->specifier == '%'){
 			write(1, "%", 1);
 			tpl->len++;

@@ -17,16 +17,19 @@ void	ft_reset_template(t_template *tpl)
 {
 	if (!tpl)
 		return ;
-	tpl->start = 0;
+	tpl->start = -1;
+	tpl->end = -1;
+
+	tpl->width = 0;
+	// TODO: better handling of precision; 
+	tpl->precision = -1;
+
 	tpl->left = 0;
 	tpl->sign = 0;
 	tpl->space = 0;
 	tpl->alt = 0;
 	tpl->zero = 0;
-	tpl->width = 0;
-	tpl->precision = 0;
 	tpl->specifier = 0;
-	tpl->end = 0;
 }
 
 int	ft_next_template(const char *str, size_t start, t_template *tpl)

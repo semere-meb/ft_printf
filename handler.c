@@ -13,39 +13,29 @@
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-void handle_c(int c, t_template *tpl) {
+void print_c(int c, t_template *tpl) {
 	size_t size = 1;
 	char *str = strgen(c, 1);
-	char *str_gen = ft_strdup("");
+	char *str_gen;
 
-	// width
-	if(tpl->width > 1){
-		free(str_gen);
-		str_gen = strgen(' ', tpl->width -1);
-	}
-	
+	str_gen = handle_width(tpl, 1, ' ');
 	size += ft_strlen(str_gen);
+	str = handle_left(tpl, str, str_gen, 1, -1);
 
-	// left
-	if (tpl->left)
-		str = append(str, str_gen, 1, -1);
-	else
-		str = append(str_gen, str, -1, 1);
-
-	tpl->len += size;
-	write(1, str, size);
+	print(str, tpl, size);
 }
 
-void handle_s(char *str, t_template *tpl)  {
-	size_t size = 0;
-	char *str_gen = ft_strdup("");
+void print_s(char *str, t_template *tpl)  {
+	char *str_gen;
 	str = ft_strdup(str);
 
 	// precision
-	if (tpl->precision && tpl->precision < (int) ft_strlen(str_gen))
+	if (tpl->precision && tpl->precision < (int) ft_strlen(str))
 		str[tpl->precision] = '\0';
 
 	// width
+	str_gen = handle_width(tpl, ft_strlen(str), ' ');
+
 	if(tpl->width > (int) ft_strlen(str)){
 		free(str_gen);
 		str_gen = strgen(' ', tpl->width - (int) ft_strlen(str));
@@ -59,27 +49,23 @@ void handle_s(char *str, t_template *tpl)  {
 
 	tpl->len += ft_strlen(str);
 	write(1, str, ft_strlen(str));
+	free(str);
 }
 
-void handle_p(char *str, t_template *tpl)   {
+void print_p(char *str, t_template *tpl)   {
 	char *str_gen = ft_strdup("");
 	str = append(ft_strdup("0x"), str, ft_strlen(str), 1);
 
-	if(tpl->width > (int) ft_strlen(str)){
-		free(str_gen);
-		str_gen = strgen(' ', tpl->width - (int) ft_strlen(str));
-	}
+	str_gen = handle_width(tpl, ft_strlen(str), handle_zero(tpl));
 
-	if (tpl->left)
-		str = append(str, str_gen, ft_strlen(str_gen), 1);
-	else
-		str = append(str_gen, str, ft_strlen(str), 1);
+	str = handle_left(tpl, str, str_gen, ft_strlen(str), ft_strlen(str_gen));
 
 	tpl->len += ft_strlen(str);
 	write(1, str, ft_strlen(str));
+	free(str);
 }
 
-void handle_d(char *str, t_template *tpl) {
+void print_d(char *str, t_template *tpl) {
 	if (tpl->sign && str[0] != '-')
 		str = append(ft_strdup("-"), str, ft_strlen(str), 1);
 	else if (tpl->space && str[0] != '-')
@@ -107,12 +93,12 @@ void handle_d(char *str, t_template *tpl) {
 	write(1, str, ft_strlen(str));
 }
 
-void handle_u(char *str, t_template *tpl) {
+void print_u(char *str, t_template *tpl) {
 	(void ) tpl;
 	(void) str;
 }
 
-void handle_x(char *str, t_template *tpl) {
+void print_x(char *str, t_template *tpl) {
 	char *str_gen = ft_strdup("");
 
 	if (tpl->precision > (int) ft_strlen(str))
