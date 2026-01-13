@@ -47,6 +47,7 @@ char *handle_width(t_template *tpl, int size, char c);
 char *handle_left(t_template *tpl, char *str, char *str_gen, size_t str_size, size_t str_gen_size);
 char *handle_alt(t_template *tpl, char *str);
 char *handle_sign(t_template *tpl, char *str);
+char *handle_space(t_template *tpl, char *str);
 char handle_zero(t_template *tpl);
 void print(char *str, t_template *tpl, size_t size);
 

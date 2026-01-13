@@ -1,4 +1,5 @@
 #include "ft_printf.h"
+#include "libft/libft.h"
 
 char *handle_precision(t_template *tpl, char *str) {
 	char *str_gen;
@@ -29,30 +30,31 @@ char *handle_left(t_template *tpl, char *str, char *str_gen, size_t str_size, si
 }
 
 char *handle_alt(t_template *tpl, char *str) {
-	if (tpl->specifier == 'p' || tpl->alt)
+	if (tpl->alt && ft_strncmp(str, "0", ft_strlen(str)))
 		return append(ft_strdup("0x"), str, 2, ft_strlen(str));
 	return str;
 }
 
 char *handle_sign(t_template *tpl, char *str) {
-	char *temp;
-	
 	if (tpl->sign && str[0] != '-')
-		temp = ft_strdup("+");
-	else if (tpl->space && str[0] != '-')
-		temp = ft_strdup(" ");
-
-	return append(temp, str, -1, -1);
+		return append(ft_strdup("+"), str, -1, -1);
+	return str;
 }
 
-void print(char *str, t_template *tpl, size_t size) {
-	tpl->len += size;
-	write(1, str, size);
-	free(str);
+char *handle_space(t_template *tpl, char *str) {
+	if (tpl->space && str[0] != '-')
+		return append(ft_strdup("+"), str, -1, -1);
+	return str;
 }
 
 char handle_zero(t_template *tpl) {
 	if (tpl->zero && !tpl->left && !tpl->precision)
 		return '0';
 	return ' ';
+}
+
+void print(char *str, t_template *tpl, size_t size) {
+	tpl->len += size;
+	write(1, str, size);
+	free(str);
 }
