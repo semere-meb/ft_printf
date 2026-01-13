@@ -35,6 +35,24 @@ typedef struct s_template
 	char	specifier;
 }			t_template;
 
+// ft_printf.c
+int			ft_printf(const char *, ...);
+
+// parser.c
+void		ft_reset_template(t_template *tpl);
+int			ft_next_template(const char *str, size_t start, t_template *tpl);
+
+// converter.c
+char		*base(int n, char *base_to);
+
+// printers.c
+void print_c(int c, t_template *tpl);
+void print_s(char *str, t_template *tpl);
+void print_p(char *str, t_template *tpl);
+void print_d(char *str, t_template *tpl);
+void print_u(char *str, t_template *tpl);
+void print_x(char *str, t_template *tpl);
+
 // utils.c
 int			ft_is_member(char c, char *chars);
 ssize_t		ft_index(const char *s, size_t start, char *chars);
@@ -50,23 +68,5 @@ char *handle_sign(t_template *tpl, char *str);
 char *handle_space(t_template *tpl, char *str);
 char handle_zero(t_template *tpl);
 void print(char *str, t_template *tpl, size_t size);
-
-// parser.c
-void		ft_reset_template(t_template *tpl);
-int			ft_next_template(const char *str, size_t start, t_template *tpl);
-
-// converter.c
-char		*base(int n, char *base_to);
-
-// ft_printf.c
-int			ft_printf(const char *, ...);
-
-// handler.c
-void print_c(int c, t_template *tpl);
-void print_s(char *str, t_template *tpl);
-void print_p(char *str, t_template *tpl);
-void print_d(char *str, t_template *tpl);
-void print_u(char *str, t_template *tpl);
-void print_x(char *str, t_template *tpl);
 
 #endif
