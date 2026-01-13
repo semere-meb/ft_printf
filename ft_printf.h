@@ -43,7 +43,7 @@ void		ft_reset_template(t_template *tpl);
 int			ft_next_template(const char *str, size_t start, t_template *tpl);
 
 // converter.c
-char		*base(int n, char *base_to);
+char	*base(long long n, char *base_to);
 
 // printers.c
 void print_c(int c, t_template *tpl);

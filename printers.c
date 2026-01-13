@@ -40,6 +40,10 @@ void print_s(char *str, t_template *tpl)  {
 
 void print_p(char *str, t_template *tpl) {
 	char *str_gen;
+	if (!ft_strncmp("0", str, ft_strlen(str))){
+		print("(nil)", tpl, 5);
+		return;
+	}
 
 	str = append(ft_strdup("0x"), str, 2, ft_strlen(str));
 	str_gen = handle_width(tpl, ft_strlen(str), ' ');
