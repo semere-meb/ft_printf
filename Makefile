@@ -21,6 +21,8 @@ $(NAME): $(OBJS) $(LIBFTLIB)
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
+bonus: $(NAME)
+
 clean:
 	rm -f $(OBJS)
 	$(MAKE) -C $(LIBFTDIR) clean

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FTPRINTF_H
-# define FTPRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
 # include "libft/libft.h"
 # include <stdarg.h>
@@ -40,7 +40,7 @@ typedef struct s_template
 }			t_template;
 
 // ft_printf.c
-int			ft_printf(const char *, ...);
+int			ft_printf(const char *f, ...);
 
 // parser.c
 void		ft_reset_template(t_template *tpl);
