@@ -29,6 +29,10 @@ void print_s(char *str, t_template *tpl)  {
 	char *str_gen;
 	char pad;
 
+	if (str == NULL){
+		print("(null)", tpl, 6);
+		return;
+	}
 	str = ft_strdup(str);
 	pad = handle_zero(tpl);
 	str = handle_precision(tpl, str);
@@ -38,13 +42,16 @@ void print_s(char *str, t_template *tpl)  {
 	print(str, tpl, ft_strlen(str));
 }
 
-void print_p(char *str, t_template *tpl) {
+void print_p(unsigned long long val, t_template *tpl) {
 	char *str_gen;
-	if (!ft_strncmp("0", str, ft_strlen(str))){
+	char *str;
+
+	if (val == 0){
 		print("(nil)", tpl, 5);
 		return;
 	}
 
+	str = base_unsigned(val, HEX);
 	str = append(ft_strdup("0x"), str, 2, ft_strlen(str));
 	str_gen = handle_width(tpl, ft_strlen(str), ' ');
 	str = handle_left(tpl, str, str_gen, -1, -1 );
@@ -52,9 +59,10 @@ void print_p(char *str, t_template *tpl) {
 	print(str, tpl, ft_strlen(str));
 }
 
-void print_d(char *str, t_template *tpl) {
+void print_d(int val, t_template *tpl) {
 	char *str_gen;
 	char pad;
+	char *str = base(val, DEC);
 
 	// TODO: check if we need to consider the sign as a digit
 	str = handle_precision(tpl, str);
@@ -67,9 +75,10 @@ void print_d(char *str, t_template *tpl) {
 	print(str, tpl, ft_strlen(str));
 }
 
-void print_u(char *str, t_template *tpl) {
+void print_u(unsigned int val, t_template *tpl) {
 	char *str_gen;
 	char pad;
+	char *str = base_unsigned(val, DEC);
 
 	// TODO: check if we need to consider the sign as a digit
 	str = handle_precision(tpl, str);
@@ -80,10 +89,16 @@ void print_u(char *str, t_template *tpl) {
 	print(str, tpl, ft_strlen(str));
 }
 
-void print_x(char *str, t_template *tpl) {
+void print_x(unsigned int val, t_template *tpl) {
 	char *str_gen;
 	char pad;
-
+	char *str;
+	
+	if (tpl->specifier == 'x')
+		str = base_unsigned(val, HEX);
+	else
+		str = base_unsigned(val, HEXCAPS);
+	
 	// TODO: remove pad?
 	pad = handle_zero(tpl);
 	str = handle_precision(tpl, str);

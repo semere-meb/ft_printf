@@ -53,10 +53,10 @@ char	*base_unsigned(unsigned long long n, char *base_to);
 // printers.c
 void print_c(int c, t_template *tpl);
 void print_s(char *str, t_template *tpl);
-void print_p(char *str, t_template *tpl);
-void print_d(char *str, t_template *tpl);
-void print_u(char *str, t_template *tpl);
-void print_x(char *str, t_template *tpl);
+void print_p(unsigned long long val, t_template *tpl);
+void print_d(int val, t_template *tpl);
+void print_u(unsigned int val, t_template *tpl);
+void print_x(unsigned int val, t_template *tpl);
 
 // utils.c
 int			ft_is_member(char c, char *chars);

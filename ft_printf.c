@@ -35,15 +35,13 @@ int	ft_printf(const char *f, ...)
 		else if (tpl->specifier == 's')
 			print_s(va_arg(args, char *), tpl);
 		else if (tpl->specifier == 'd' || tpl->specifier == 'i')
-			print_d(base(va_arg(args, int), DEC), tpl);
+			print_d(va_arg(args, int), tpl);
 		else if (tpl->specifier == 'u')
-			print_u(base(va_arg(args, unsigned int), DEC), tpl);
+			print_u(va_arg(args, unsigned int), tpl);
 		else if (tpl->specifier == 'p')
-			print_p(base_unsigned((unsigned long long) va_arg(args, void *), HEX), tpl);
-		else if (tpl->specifier == 'x')
-			print_x(base(va_arg(args, unsigned int), HEX), tpl);
-		else if (tpl->specifier == 'X')
-			print_x(base(va_arg(args, unsigned int), HEXCAPS), tpl);
+			print_p((unsigned long long) va_arg(args, void *), tpl);
+		else if (tpl->specifier == 'x' || tpl->specifier == 'X')
+			print_x(va_arg(args, unsigned int), tpl);
 		else if (tpl->specifier == '%'){
 			write(1, "%", 1);
 			tpl->len++;
