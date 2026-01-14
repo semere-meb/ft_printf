@@ -13,7 +13,24 @@
 #include "ft_printf.h"
 #include "libft/libft.h"
 #include <stdarg.h>
-#include <stdio.h>
+
+void	dispatcher(t_template *tpl, va_list args)
+{
+	if (tpl->specifier == 'c')
+		print_c(va_arg(args, int), tpl);
+	else if (tpl->specifier == 's')
+		print_s(va_arg(args, char *), tpl);
+	else if (tpl->specifier == 'd' || tpl->specifier == 'i')
+		print_d(va_arg(args, int), tpl);
+	else if (tpl->specifier == 'u')
+		print_u(va_arg(args, unsigned int), tpl);
+	else if (tpl->specifier == 'p')
+		print_p((unsigned long long)va_arg(args, void *), tpl);
+	else if (tpl->specifier == 'x' || tpl->specifier == 'X')
+		print_x(va_arg(args, unsigned int), tpl);
+	else if (tpl->specifier == '%')
+		print(ft_strdup("%"), tpl, 1);
+}
 
 int	ft_printf(const char *f, ...)
 {
@@ -25,36 +42,15 @@ int	ft_printf(const char *f, ...)
 	tpl = malloc(sizeof(t_template));
 	tpl->len = 0;
 	va_start(args, f);
-
 	while (f[i] && ft_next_template(f, i, tpl))
 	{
 		write(1, &f[i], tpl->start - i);
 		tpl->len += (tpl->start - i);
-		if (tpl->specifier == 'c')
-			print_c(va_arg(args, int), tpl);
-		else if (tpl->specifier == 's')
-			print_s(va_arg(args, char *), tpl);
-		else if (tpl->specifier == 'd' || tpl->specifier == 'i')
-			print_d(va_arg(args, int), tpl);
-		else if (tpl->specifier == 'u')
-			print_u(va_arg(args, unsigned int), tpl);
-		else if (tpl->specifier == 'p')
-			print_p((unsigned long long) va_arg(args, void *), tpl);
-		else if (tpl->specifier == 'x' || tpl->specifier == 'X')
-			print_x(va_arg(args, unsigned int), tpl);
-		else if (tpl->specifier == '%'){
-			write(1, "%", 1);
-			tpl->len++;
-		}
+		dispatcher(tpl, args);
 		i = tpl->end;
 	}
 	write(1, &f[i], ft_strlen(&f[i]));
 	tpl->len += ft_strlen(&f[i]);
 	i = tpl->len;
-
-	// TODO: handle last '%'
-	va_end(args);
-	free(tpl);
-
-	return (i);
+	return (va_end(args), free(tpl), i);
 }

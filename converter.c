@@ -12,23 +12,6 @@
 
 #include "ft_printf.h"
 
-static char	*ft_populate(char *str, unsigned long long n, int is_negative, size_t digit_count,
-		char *base_to)
-{
-	size_t	base_len;
-
-	base_len = ft_strlen(base_to);
-	str[digit_count--] = '\0';
-	while (n > 0)
-	{
-		str[digit_count--] = base_to[n % base_len];
-		n /= base_len;
-	}
-	if (is_negative)
-		str[digit_count--] = '-';
-	return (str);
-}
-
 static size_t	ft_count_digits(unsigned long long n, size_t base_len)
 {
 	size_t	digit_count;
@@ -44,15 +27,34 @@ static size_t	ft_count_digits(unsigned long long n, size_t base_len)
 	return (digit_count);
 }
 
+static char	*ft_populate(char *str, unsigned long long n, int is_negative,
+		char *base_to)
+{
+	size_t	base_len;
+	size_t	digit_count;
+
+	base_len = ft_strlen(base_to);
+	digit_count = ft_count_digits(n, base_len) + is_negative;
+	str[digit_count--] = '\0';
+	while (n > 0)
+	{
+		str[digit_count--] = base_to[n % base_len];
+		n /= base_len;
+	}
+	if (is_negative)
+		str[digit_count--] = '-';
+	return (str);
+}
+
 char	*base(long long n, char *base_to)
 {
 	long long	n_unsigned;
-	char	*str;
-	size_t	digit_count;
-	size_t	base_len;
+	char		*str;
+	size_t		digit_count;
+	size_t		base_len;
 
 	if (n == 0)
-		return ft_strdup("0");
+		return (ft_strdup("0"));
 	base_len = ft_strlen(base_to);
 	n_unsigned = n;
 	if (n_unsigned < 0)
@@ -61,7 +63,7 @@ char	*base(long long n, char *base_to)
 	str = malloc((n < 0) + digit_count + 1);
 	if (!str)
 		return (NULL);
-	return (ft_populate(str, n_unsigned, (n < 0), (n < 0) + digit_count, base_to));
+	return (ft_populate(str, n_unsigned, (n < 0), base_to));
 }
 
 char	*base_unsigned(unsigned long long n, char *base_to)
@@ -71,11 +73,11 @@ char	*base_unsigned(unsigned long long n, char *base_to)
 	size_t	base_len;
 
 	if (n == 0)
-		return ft_strdup("0");
+		return (ft_strdup("0"));
 	base_len = ft_strlen(base_to);
 	digit_count = ft_count_digits(n, base_len);
 	str = malloc(digit_count + 1);
 	if (!str)
 		return (NULL);
-	return (ft_populate(str, n, 0, digit_count, base_to));
+	return (ft_populate(str, n, 0, base_to));
 }

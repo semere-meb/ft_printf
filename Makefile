@@ -3,7 +3,7 @@ LIBFTDIR = libft
 LIBFTLIB = $(LIBFTDIR)/libft.a
 TEST = main.c
 
-SRCS = ft_printf.c parser.c converter.c printers.c utils.c utils2.c
+SRCS = ft_printf.c parser.c converter.c utils.c printers1.c printers2.c handlers1.c handlers2.c
 OBJS = $(SRCS:.c=.o)
 
 CC = cc

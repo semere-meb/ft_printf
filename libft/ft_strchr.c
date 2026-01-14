@@ -23,7 +23,7 @@ char	*ft_strchr(const char *s, int c)
 	len = ft_strlen(s);
 	while (i <= len)
 	{
-		if (s[i] == (unsigned char) c)
+		if (s[i] == (unsigned char)c)
 			return ((char *)&s[i]);
 		i++;
 	}

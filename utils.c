@@ -54,23 +54,19 @@ char	*strgen(char c, size_t size)
 
 char	*append(char *s1, char *s2, ssize_t s1size, ssize_t s2size)
 {
-	char *res;
-	
+	char	*res;
+
 	if (s1size == -1)
 		s1size = ft_strlen(s1);
 	if (s2size == -1)
 		s2size = ft_strlen(s2);
-
 	res = malloc(s1size + s2size + 1);
 	if (!res)
-		return NULL;
-
+		return (NULL);
 	ft_memcpy(res, s1, s1size);
 	ft_memcpy(&res[s1size], s2, s2size);
-	res[s1size+s2size] = '\0';
-
+	res[s1size + s2size] = '\0';
 	free(s1);
 	free(s2);
-
 	return (res);
 }

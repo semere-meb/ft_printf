@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   handlers2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: semebrah <semebrah@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/25 15:55:18 by semebrah          #+#    #+#             */
-/*   Updated: 2025/11/25 15:55:28 by semebrah         ###   ########.fr       */
+/*   Created: 2025/12/09 17:23:48 by semebrah          #+#    #+#             */
+/*   Updated: 2025/12/15 19:37:33 by semebrah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+char	*handle_space(t_template *tpl, char *str)
 {
-	size_t	i;
+	if (tpl->space && str[0] != '-')
+		return (append(ft_strdup("+"), str, -1, -1));
+	return (str);
+}
 
-	i = 0;
-	while (i < n)
-		((unsigned char *)s)[i++] = c;
-	return (s);
+char	handle_zero(t_template *tpl)
+{
+	if (tpl->zero && !tpl->left && !tpl->precision)
+		return ('0');
+	return (' ');
 }

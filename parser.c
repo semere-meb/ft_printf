@@ -19,11 +19,8 @@ void	ft_reset_template(t_template *tpl)
 		return ;
 	tpl->start = -1;
 	tpl->end = -1;
-
 	tpl->width = 0;
-	// TODO: better handling of precision; 
 	tpl->precision = -1;
-
 	tpl->left = 0;
 	tpl->sign = 0;
 	tpl->space = 0;
@@ -32,30 +29,29 @@ void	ft_reset_template(t_template *tpl)
 	tpl->specifier = 0;
 }
 
-int	ft_next_template(const char *str, size_t start, t_template *tpl)
+void	set_flag(char f, t_template *tpl)
 {
-	size_t	i;
+	if (f == '-')
+		tpl->left = 1;
+	else if (f == '+')
+		tpl->sign = 1;
+	else if (f == ' ')
+		tpl->space = 1;
+	else if (f == '#')
+		tpl->alt = 1;
+	else if (f == '0')
+		tpl->zero = 1;
+}
 
-	i = start;
+int	ft_next_template(const char *str, size_t i, t_template *tpl)
+{
 	while (str[i] && ft_index(str, i, "%") > -1)
 	{
 		ft_reset_template(tpl);
 		tpl->start = ft_index(str, i, "%");
 		i = tpl->start + 1;
 		while (str[i] && ft_is_member(str[i], "-+ #0"))
-		{
-			if (str[i] == '-')
-				tpl->left = 1;
-			else if (str[i] == '+')
-				tpl->sign = 1;
-			else if (str[i] == ' ')
-				tpl->space = 1;
-			else if (str[i] == '#')
-				tpl->alt = 1;
-			else if (str[i] == '0')
-				tpl->zero = 1;
-			i++;
-		}
+			set_flag(str[i++], tpl);
 		while (str[i] && ft_isdigit(str[i]))
 			tpl->width = tpl->width * 10 + str[i++] - '0';
 		if (str[i] == '.')
