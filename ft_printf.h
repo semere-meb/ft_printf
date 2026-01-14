@@ -18,6 +18,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+#define DEC     "0123456789"
+#define HEX     "0123456789abcdef"
+#define HEXCAPS "0123456789ABCDEF"
+
 typedef struct s_template
 {
 	size_t	start;
@@ -44,6 +48,7 @@ int			ft_next_template(const char *str, size_t start, t_template *tpl);
 
 // converter.c
 char	*base(long long n, char *base_to);
+char	*base_unsigned(unsigned long long n, char *base_to);
 
 // printers.c
 void print_c(int c, t_template *tpl);

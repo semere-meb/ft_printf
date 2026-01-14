@@ -67,6 +67,7 @@ char	*append(char *s1, char *s2, ssize_t s1size, ssize_t s2size)
 
 	ft_memcpy(res, s1, s1size);
 	ft_memcpy(&res[s1size], s2, s2size);
+	res[s1size+s2size] = '\0';
 
 	free(s1);
 	free(s2);

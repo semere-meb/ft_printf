@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static char	*ft_populate(char *str, long long n, int is_negative, size_t digit_count,
+static char	*ft_populate(char *str, unsigned long long n, int is_negative, size_t digit_count,
 		char *base_to)
 {
 	size_t	base_len;
@@ -29,7 +29,7 @@ static char	*ft_populate(char *str, long long n, int is_negative, size_t digit_c
 	return (str);
 }
 
-static size_t	ft_count_digits(long long n, size_t base_len)
+static size_t	ft_count_digits(unsigned long long n, size_t base_len)
 {
 	size_t	digit_count;
 
@@ -46,7 +46,7 @@ static size_t	ft_count_digits(long long n, size_t base_len)
 
 char	*base(long long n, char *base_to)
 {
-	long long	positive_n;
+	long long	n_unsigned;
 	char	*str;
 	size_t	digit_count;
 	size_t	base_len;
@@ -54,12 +54,28 @@ char	*base(long long n, char *base_to)
 	if (n == 0)
 		return ft_strdup("0");
 	base_len = ft_strlen(base_to);
-	positive_n = n;
-	if (positive_n < 0)
-		positive_n = -positive_n;
-	digit_count = ft_count_digits(positive_n, base_len);
+	n_unsigned = n;
+	if (n_unsigned < 0)
+		n_unsigned = -n_unsigned;
+	digit_count = ft_count_digits(n_unsigned, base_len);
 	str = malloc((n < 0) + digit_count + 1);
 	if (!str)
 		return (NULL);
-	return (ft_populate(str, positive_n, (n < 0), (n < 0) + digit_count, base_to));
+	return (ft_populate(str, n_unsigned, (n < 0), (n < 0) + digit_count, base_to));
+}
+
+char	*base_unsigned(unsigned long long n, char *base_to)
+{
+	char	*str;
+	size_t	digit_count;
+	size_t	base_len;
+
+	if (n == 0)
+		return ft_strdup("0");
+	base_len = ft_strlen(base_to);
+	digit_count = ft_count_digits(n, base_len);
+	str = malloc(digit_count + 1);
+	if (!str)
+		return (NULL);
+	return (ft_populate(str, n, 0, digit_count, base_to));
 }
