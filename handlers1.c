@@ -14,10 +14,15 @@
 #include "libft/libft.h"
 #include <stdio.h>
 
-char	*handle_precision(t_template *tpl, char *str, int zero)
+char	*handle_precision(t_template *tpl, char *str, int zero, int negative)
 {
 	char	*str_gen;
+	(void) negative;
 
+	if (zero && tpl->precision > -1 && tpl->precision < (ssize_t) ft_strlen(str)){
+		free(str);
+		return ft_strdup("");
+	}
 	if (tpl->precision > -1)
 	{
 		if (tpl->specifier == 's' && tpl->precision < (int)ft_strlen(str))
@@ -25,16 +30,12 @@ char	*handle_precision(t_template *tpl, char *str, int zero)
 		else if (ft_is_member(tpl->specifier, "diuxX")
 			&& tpl->precision > (int)ft_strlen(str))
 		{
-			if (zero)
-			{
-				free(str);
-				str = ft_strdup("");
-			}
-			else
-			{
-				str_gen = strgen('0', tpl->precision - ft_strlen(str));
-				str = append(str_gen, str, ft_strlen(str), 1);
-			}
+			// dprintf(1, "\nDEBUG: str : [%s]", str);
+			// dprintf(1, "\nDEBUG: len : [%zu]", ft_strlen(str));
+			// dprintf(1, "\nDEBUG: prec: [%d]", tpl->precision);
+			// dprintf(1, "\nDEBUG: diff: [%zu]\n", tpl->precision - ft_strlen(str));
+			str_gen = strgen('0', tpl->precision - ft_strlen(str));
+			str = append(str_gen, str, -1, -1);
 		}
 	}
 	return (str);

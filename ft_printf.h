@@ -68,7 +68,7 @@ void		print_x(unsigned int val, t_template *tpl);
 void		print(char *str, t_template *tpl, size_t size);
 
 // handlers1.c
-char		*handle_precision(t_template *tpl, char *str, int zero);
+char	*handle_precision(t_template *tpl, char *str, int zero, int negative);
 char		*handle_width(t_template *tpl, int size, char c);
 char		*handle_left(t_template *tpl, char *str, char *str_gen,
 				size_t str_size);
