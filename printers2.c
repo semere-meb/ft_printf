@@ -23,7 +23,7 @@ void	print_x(unsigned int val, t_template *tpl)
 	else
 		str = base_unsigned(val, HEXCAPS);
 	pad = handle_zero(tpl);
-	str = handle_precision(tpl, str);
+	str = handle_precision(tpl, str, val == 0);
 	str = handle_alt(tpl, str);
 	str_gen = handle_width(tpl, ft_strlen(str), pad);
 	str = handle_left(tpl, str, str_gen, -1);

@@ -54,10 +54,12 @@ int	ft_next_template(const char *str, size_t i, t_template *tpl)
 			set_flag(str[i++], tpl);
 		while (str[i] && ft_isdigit(str[i]))
 			tpl->width = tpl->width * 10 + str[i++] - '0';
-		if (str[i] == '.')
+		if (str[i] == '.'){
 			i++;
-		while (str[i] && ft_isdigit(str[i]))
-			tpl->precision = tpl->precision * 10 + str[i++] - '0';
+			tpl->precision = 0;
+			while (str[i] && ft_isdigit(str[i]))
+				tpl->precision = tpl->precision * 10 + str[i++] - '0';
+		}
 		if (str[i] && ft_is_member(str[i], "cspdiuxX%"))
 			tpl->specifier = str[i++];
 		tpl->end = i;

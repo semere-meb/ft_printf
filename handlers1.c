@@ -12,8 +12,9 @@
 
 #include "ft_printf.h"
 #include "libft/libft.h"
+#include <stdio.h>
 
-char	*handle_precision(t_template *tpl, char *str)
+char	*handle_precision(t_template *tpl, char *str, int zero)
 {
 	char	*str_gen;
 
@@ -24,8 +25,16 @@ char	*handle_precision(t_template *tpl, char *str)
 		else if (ft_is_member(tpl->specifier, "diuxX")
 			&& tpl->precision > (int)ft_strlen(str))
 		{
-			str_gen = strgen('0', tpl->precision - ft_strlen(str));
-			str = append(str_gen, str, ft_strlen(str), 1);
+			if (zero)
+			{
+				free(str);
+				str = ft_strdup("");
+			}
+			else
+			{
+				str_gen = strgen('0', tpl->precision - ft_strlen(str));
+				str = append(str_gen, str, ft_strlen(str), 1);
+			}
 		}
 	}
 	return (str);
