@@ -21,7 +21,7 @@ void	dispatcher(t_template *tpl, va_list args)
 	else if (tpl->specifier == 's')
 		print_s(va_arg(args, char *), tpl);
 	else if (tpl->specifier == 'd' || tpl->specifier == 'i')
-		print_d(va_arg(args, int), tpl);
+		print_d((long long)va_arg(args, int), tpl);
 	else if (tpl->specifier == 'u')
 		print_u(va_arg(args, unsigned int), tpl);
 	else if (tpl->specifier == 'p')

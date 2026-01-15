@@ -47,8 +47,7 @@ void		ft_reset_template(t_template *tpl);
 int			ft_next_template(const char *str, size_t start, t_template *tpl);
 
 // converter.c
-char		*base(long long n, char *base_to);
-char		*base_unsigned(unsigned long long n, char *base_to);
+char		*convert(unsigned long long n, char *base_to);
 
 // utils.c
 int			ft_is_member(char c, char *chars);
@@ -61,7 +60,7 @@ void		inspect_tpl(t_template *tpl);
 void		print_c(int c, t_template *tpl);
 void		print_s(char *str, t_template *tpl);
 void		print_p(unsigned long long val, t_template *tpl);
-void		print_d(int val, t_template *tpl);
+void	print_d(long long val, t_template *tpl);
 void		print_u(unsigned int val, t_template *tpl);
 
 // printers2.c

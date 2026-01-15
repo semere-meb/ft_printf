@@ -19,9 +19,9 @@ void	print_x(unsigned int val, t_template *tpl)
 	char	*str;
 
 	if (tpl->specifier == 'x')
-		str = base_unsigned(val, HEX);
+		str = convert(val, HEX);
 	else
-		str = base_unsigned(val, HEXCAPS);
+		str = convert(val, HEXCAPS);
 	pad = handle_zero(tpl);
 	str = handle_precision(tpl, str, val == 0);
 	str = handle_alt(tpl, str);

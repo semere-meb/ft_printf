@@ -51,23 +51,31 @@ void	print_p(unsigned long long val, t_template *tpl)
 	if (val == 0)
 		str = ft_strdup("(nil)");
 	else
-		str = append(ft_strdup("0x"), base_unsigned(val, HEX), -1, -1);
+		str = append(ft_strdup("0x"), convert(val, HEX), -1, -1);
 	str_gen = handle_width(tpl, ft_strlen(str), ' ');
 	str = handle_left(tpl, str, str_gen, -1);
 	print(str, tpl, ft_strlen(str));
 }
 
-void	print_d(int val, t_template *tpl)
+void	print_d(long long val, t_template *tpl)
 {
 	char	*str_gen;
 	char	pad;
 	char	*str;
+	int negative = 0;
 
-	str = base(val, DEC);
+	if (val < 0) {
+		negative = 1;
+		val *= -1;
+	}
+
+	str = convert(val, DEC);
 	str = handle_precision(tpl, str, val == 0);
 	pad = handle_zero(tpl);
 	str = handle_sign(tpl, str);
 	str = handle_space(tpl, str);
+	if (negative)
+		str = append(ft_strdup("-"), str, -1, -1);
 	str_gen = handle_width(tpl, ft_strlen(str), pad);
 	str = handle_left(tpl, str, str_gen, -1);
 	print(str, tpl, ft_strlen(str));
@@ -79,7 +87,7 @@ void	print_u(unsigned int val, t_template *tpl)
 	char	pad;
 	char	*str;
 
-	str = base_unsigned(val, DEC);
+	str = convert(val, DEC);
 	str = handle_precision(tpl, str, val == 0);
 	pad = handle_zero(tpl);
 	str_gen = handle_width(tpl, ft_strlen(str), pad);
