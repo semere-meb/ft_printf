@@ -23,9 +23,9 @@ void	print_x(unsigned int val, t_template *tpl)
 	else
 		str = convert(val, HEXCAPS);
 	pad = handle_zero(tpl);
-	str = handle_precision(tpl, str, val == 0, 0);
+	str = handle_precision(tpl, str, val == 0);
 	str = handle_alt(tpl, str);
-	str_gen = handle_width(tpl, ft_strlen(str), pad);
+	str_gen = handle_width(tpl, ft_strlen(str), pad, 0);
 	str = handle_left(tpl, str, str_gen, -1);
 	print(str, tpl, ft_strlen(str));
 }

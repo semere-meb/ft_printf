@@ -72,13 +72,3 @@ char	*append(char *s1, char *s2, ssize_t s1size, ssize_t s2size)
 	return (res);
 }
 
-void	inspect_tpl(t_template *tpl)
-{
-	dprintf(1, "\nleft: [%d]", tpl->left);
-	dprintf(1, "\nsign: [%d]", tpl->sign);
-	dprintf(1, "\nspace: [%d]", tpl->space);
-	dprintf(1, "\nalt: [%d]", tpl->alt);
-	dprintf(1, "\nzero: [%d]", tpl->zero);
-	dprintf(1, "\nwidth: [%d]", tpl->width);
-	dprintf(1, "\nprecision: [%d]\n", tpl->precision);
-}

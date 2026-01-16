@@ -12,16 +12,16 @@
 
 #include "ft_printf.h"
 
-char	*handle_space(t_template *tpl, char *str)
+char	*handle_space(t_template *tpl, char *str, int negative)
 {
-	if (tpl->space && str[0] != '-')
-		return (append(ft_strdup("+"), str, -1, -1));
+	if (tpl->space && !tpl->sign && !negative)
+		return (append(ft_strdup(" "), str, -1, -1));
 	return (str);
 }
 
 char	handle_zero(t_template *tpl)
 {
-	if (tpl->zero && !tpl->left && !tpl->precision)
+	if (tpl->zero && !tpl->left && tpl->precision == -1)
 		return ('0');
 	return (' ');
 }
