@@ -71,4 +71,3 @@ char	*append(char *s1, char *s2, ssize_t s1size, ssize_t s2size)
 	free(s2);
 	return (res);
 }
-
