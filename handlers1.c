@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
-#include <stdio.h>
 
 char	*handle_precision(t_template *tpl, char *str, int zero)
 {

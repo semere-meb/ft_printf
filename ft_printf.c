@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
-#include <stdarg.h>
 
 void	dispatcher(t_template *tpl, va_list args)
 {
